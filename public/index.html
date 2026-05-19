@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Boutique</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header>
+    <h1>🛍️ Ayman Brand</h1>
+  </header>
+  <main>
+    <div id="products" class="products-grid"></div>
+  </main>
+  <div id="modal" class="modal hidden">
+    <div class="modal-content">
+      <h2>Commander</h2>
+      <p id="modal-product-name"></p>
+      <label>Taille :</label>
+      <div id="sizes"></div>
+      <label>Couleur :</label>
+      <div id="colors"></div>
+      <label>Votre nom :</label>
+      <input type="text" id="name" placeholder="Nom complet">
+      <label>Téléphone :</label>
+      <input type="text" id="phone" placeholder="06XXXXXXXX">
+      <label>Adresse :</label>
+      <input type="text" id="address" placeholder="Votre adresse">
+      <label>Ville :</label>
+      <input type="text" id="city" placeholder="Votre ville">
+      <button id="submit-order">✅ Confirmer la commande</button>
+      <button id="close-modal">❌ Annuler</button>
+    </div>
+  </div>
+  <div id="success" class="hidden success-msg">
+    ✅ Commande envoyée avec succès !
+  </div>
+  <script src="js/main.js"></script>
+</body>
+</html>
