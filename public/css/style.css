@@ -1,21 +1,326 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=Montserrat:wght@300;400;500&display=swap');
+
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: Arial, sans-serif; background: #f9f4f0; color: #333; }
-header { background: #c0392b; color: white; text-align: center; padding: 20px; font-size: 24px; }
-.products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; padding: 30px; }
-.product-card { background: white; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); overflow: hidden; text-align: center; }
-.product-card img { width: 100%; height: 250px; object-fit: cover; }
-.product-card h2 { font-size: 22px; margin: 15px 10px 5px; }
-.product-card .price { font-size: 20px; color: #c0392b; font-weight: bold; margin-bottom: 15px; }
-.product-card button { background: #c0392b; color: white; border: none; padding: 12px 30px; font-size: 18px; border-radius: 8px; cursor: pointer; margin-bottom: 20px; width: 80%; }
-.modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 100; }
-.modal-content { background: white; border-radius: 12px; padding: 30px; width: 90%; max-width: 500px; max-height: 90vh; overflow-y: auto; }
-.modal-content h2 { font-size: 24px; margin-bottom: 15px; color: #c0392b; }
-.modal-content label { display: block; font-size: 18px; margin: 15px 0 8px; font-weight: bold; }
-.modal-content input { width: 100%; padding: 12px; font-size: 18px; border: 2px solid #ddd; border-radius: 8px; }
-.sizes-container, .colors-container { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 10px; }
-.size-btn, .color-btn { padding: 10px 20px; font-size: 16px; border: 2px solid #c0392b; border-radius: 8px; background: white; cursor: pointer; }
-.size-btn.selected, .color-btn.selected { background: #c0392b; color: white; }
-#submit-order { width: 100%; padding: 15px; font-size: 20px; background: #c0392b; color: white; border: none; border-radius: 8px; cursor: pointer; margin-top: 20px; }
-#close-modal { width: 100%; padding: 12px; font-size: 18px; background: #ddd; border: none; border-radius: 8px; cursor: pointer; margin-top: 10px; }
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  background: #f8f5f0;
+  color: #1a1a1a;
+}
+
+header {
+  background: linear-gradient(135deg, #1a1a1a 0%, #2c2c2c 100%);
+  color: white;
+  text-align: center;
+  padding: 50px 20px 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+header::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #b47c3c, #f0d060, #b47c3c);
+}
+
+header::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #b47c3c, #f0d060, #b47c3c);
+}
+
+header h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 64px;
+  font-weight: 300;
+  letter-spacing: 18px;
+  text-transform: uppercase;
+  color: white;
+  text-shadow: 0 0 30px rgba(201,168,76,0.3);
+}
+
+header p.subtitle {
+  font-size: 13px;
+  color: #b47c3c;
+  margin-top: 12px;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  font-weight: 300;
+}
+
+.gold-bar {
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #b47c3c, transparent);
+}
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 30px;
+  padding: 50px 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.product-card {
+  background: white;
+  box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+  overflow: hidden;
+  text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+}
+
+.product-card img {
+  width: 100%;
+  height: 320px;
+  object-fit: cover;
+}
+
+.product-card-body {
+  padding: 25px 20px;
+}
+
+.product-card h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 26px;
+  font-weight: 400;
+  color: #1a1a1a;
+  margin-bottom: 8px;
+  letter-spacing: 2px;
+}
+
+.product-card .price {
+  font-size: 18px;
+  color: #b47c3c;
+  font-weight: 500;
+  margin-bottom: 18px;
+  letter-spacing: 1px;
+}
+
+.product-card button {
+  background: #1a1a1a;
+  color: white;
+  border: 1px solid #1a1a1a;
+  padding: 13px 30px;
+  font-size: 13px;
+  font-family: 'Montserrat', sans-serif;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  cursor: pointer;
+  margin-bottom: 20px;
+  width: 85%;
+  transition: all 0.3s;
+}
+
+.product-card button:hover {
+  background: white;
+  color: #1a1a1a;
+  border-color: #b47c3c;
+}
+
+.modal {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+.modal-content {
+  background: white;
+  padding: 40px;
+  width: 90%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+  border-top: 3px solid #b47c3c;
+}
+
+.modal-content h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 30px;
+  font-weight: 400;
+  color: #1a1a1a;
+  margin-bottom: 5px;
+  text-align: center;
+  letter-spacing: 3px;
+}
+
+.modal-content .modal-divider {
+  text-align: center;
+  color: #b47c3c;
+  font-size: 16px;
+  margin-bottom: 20px;
+  letter-spacing: 5px;
+}
+
+.modal-content label {
+  display: block;
+  font-size: 12px;
+  margin: 14px 0 6px;
+  font-weight: 500;
+  color: #666;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.modal-content input {
+  width: 100%;
+  padding: 12px;
+  font-size: 15px;
+  border: 1px solid #ddd;
+  font-family: 'Montserrat', sans-serif;
+  outline: none;
+  transition: border 0.3s;
+}
+
+.modal-content input:focus {
+  border-color: #b47c3c;
+}
+
+.sizes-container, .colors-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.size-btn, .color-btn {
+  padding: 8px 18px;
+  font-size: 13px;
+  border: 1px solid #ddd;
+  background: white;
+  cursor: pointer;
+  font-family: 'Montserrat', sans-serif;
+  letter-spacing: 1px;
+  transition: all 0.2s;
+}
+
+.size-btn.selected, .color-btn.selected {
+  background: #1a1a1a;
+  color: white;
+  border-color: #1a1a1a;
+}
+
+#submit-order {
+  width: 100%;
+  padding: 15px;
+  font-size: 13px;
+  font-family: 'Montserrat', sans-serif;
+  background: #1a1a1a;
+  color: white;
+  border: none;
+  cursor: pointer;
+  margin-top: 20px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  transition: all 0.3s;
+}
+
+#submit-order:hover {
+  background: #b47c3c;
+}
+
+#close-modal {
+  width: 100%;
+  padding: 12px;
+  font-size: 13px;
+  background: white;
+  border: 1px solid #ddd;
+  cursor: pointer;
+  margin-top: 10px;
+  font-family: 'Montserrat', sans-serif;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
 .hidden { display: none; }
-.success-msg { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: #27ae60; color: white; padding: 15px 30px; border-radius: 10px; font-size: 20px; z-index: 200; }
+
+.success-msg {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1a1a1a;
+  color: #b47c3c;
+  padding: 15px 40px;
+  font-size: 14px;
+  border-top: 2px solid #b47c3c;
+  z-index: 200;
+  font-family: 'Montserrat', sans-serif;
+  letter-spacing: 2px;
+}
+
+footer {
+  background: #1a1a1a;
+  color: #b47c3c;
+  text-align: center;
+  padding: 25px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 16px;
+  letter-spacing: 5px;
+  margin-top: 60px;
+}
+
+/* ── Formulaire moderne arrondi ── */
+#product-page input[type="text"] {
+  width: 100%;
+  padding: 14px 18px;
+  margin: 6px 0 16px;
+  border: 1.5px solid #e0d6cc;
+  border-radius: 12px;
+  background: #fff;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  color: #333;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  transition: border-color 0.3s, box-shadow 0.3s;
+  box-sizing: border-box;
+  outline: none;
+}
+#product-page input[type="text"]:focus {
+  border-color: #b47c3c;
+  box-shadow: 0 4px 16px rgba(180,124,60,0.15);
+}
+#product-page label {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #888;
+  margin-bottom: 4px;
+  display: block;
+}
+#detail-submit {
+  width: 100%;
+  padding: 16px;
+  margin-top: 10px;
+  background: #b47c3c;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(180,124,60,0.3);
+  transition: all 0.3s;
+}
+#detail-submit:hover {
+  background: #9a6830;
+  box-shadow: 0 6px 24px rgba(180,124,60,0.45);
+  transform: translateY(-1px);
+}

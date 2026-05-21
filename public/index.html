@@ -3,39 +3,155 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Boutique</title>
+  <title>𝗔𝗬𝗠𝗔𝗡 𝗕𝗥𝗔𝗡𝗗</title>
   <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Montserrat:wght@300;400;500&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+  <style>
+    #splash {
+      position: fixed; top: 0; left: 0;
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      z-index: 9999; transition: opacity 1.2s ease; background: #0a0a0a;
+    }
+    #splash.fade-out { opacity: 0; pointer-events: none; }
+    .splash-content { text-align: center; padding: 20px; }
+    .splash-top-line, .splash-bottom-line {
+      width: 0; height: 1px; background: #b47c3c;
+      margin: 0 auto; animation: expandLine 1.2s ease 0.3s forwards;
+    }
+    .splash-top-line { margin-bottom: 40px; }
+    .splash-bottom-line { margin-top: 40px; }
+    @keyframes expandLine { to { width: 200px; } }
+    #splash h1 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 72px; font-weight: 700; font-style: normal;
+      color: white; opacity: 0;
+      animation: fadeIn 1.5s ease 0.8s forwards; letter-spacing: 18px;
+    }
+    #splash p {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 13px; color: #b47c3c; letter-spacing: 7px;
+      margin-top: 15px; opacity: 0;
+      animation: fadeIn 1.5s ease 1.2s forwards; text-transform: uppercase;
+    }
+    .enter-btn {
+      margin-top: 50px; padding: 16px 55px;
+      background: transparent; border: 1px solid #b47c3c;
+      color: #b47c3c; font-family: 'Montserrat', sans-serif;
+      font-size: 11px; letter-spacing: 5px; text-transform: uppercase;
+      cursor: pointer; opacity: 0;
+      animation: fadeIn 1.5s ease 1.8s forwards;
+      transition: all 0.4s; display: block; margin: 50px auto 0;
+    }
+    .enter-btn:hover { background: #b47c3c; color: white; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    #product-page { display: none; padding: 20px; max-width: 1000px; margin: 0 auto; }
+    .breadcrumb { font-family: 'Montserrat', sans-serif; font-size: 12px; color: #999; margin-bottom: 20px; cursor: pointer; }
+    .breadcrumb span { color: #b47c3c; }
+    .product-detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+    .product-images { display: flex; flex-direction: column; gap: 10px; }
+    #main-product-img { width: 100%; max-height: 480px; object-fit: cover; }
+    .thumbnails { display: flex; gap: 8px; flex-wrap: wrap; }
+    .thumbnails img { width: 70px; height: 70px; object-fit: cover; cursor: pointer; opacity: 0.6; border: 2px solid transparent; transition: all 0.3s; }
+    .thumbnails img.active, .thumbnails img:hover { opacity: 1; border-color: #b47c3c; }
+    .product-info { display: flex; flex-direction: column; gap: 16px; }
+    #detail-price { font-family: 'Montserrat', sans-serif; font-size: 22px; color: #b47c3c; font-weight: 500; }
+    .size-btn-product, .color-btn-product {
+      padding: 8px 18px; margin: 4px; border: 1px solid #ccc;
+      background: transparent; cursor: pointer; font-family: 'Montserrat', sans-serif;
+      font-size: 12px; letter-spacing: 2px; transition: all 0.3s;
+    }
+    .size-btn-product.selected, .color-btn-product.selected { border-color: #b47c3c; background: #b47c3c; color: white; }
+    .back-btn {
+      background: transparent; border: none; color: #b47c3c;
+      font-family: 'Montserrat', sans-serif; font-size: 13px;
+      cursor: pointer; letter-spacing: 2px; margin-bottom: 20px; padding: 0;
+    }
+    @media (max-width: 700px) {
+      .product-detail-grid { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
-  <header>
-    <h1>🛍️ Ayman Brand</h1>
-  </header>
-  <main>
-    <div id="products" class="products-grid"></div>
-  </main>
-  <div id="modal" class="modal hidden">
-    <div class="modal-content">
-      <h2>Commander</h2>
-      <p id="modal-product-name"></p>
-      <label>Taille :</label>
-      <div id="sizes"></div>
-      <label>Couleur :</label>
-      <div id="colors"></div>
-      <label>Votre nom :</label>
-      <input type="text" id="name" placeholder="Nom complet">
-      <label>Téléphone :</label>
-      <input type="text" id="phone" placeholder="06XXXXXXXX">
-      <label>Adresse :</label>
-      <input type="text" id="address" placeholder="Votre adresse">
-      <label>Ville :</label>
-      <input type="text" id="city" placeholder="Votre ville">
-      <button id="submit-order">✅ Confirmer la commande</button>
-      <button id="close-modal">❌ Annuler</button>
+
+  <!-- SPLASH -->
+  <div id="splash">
+    <div class="splash-content">
+      <div class="splash-top-line"></div>
+      <h1>𝗔𝗬𝗠𝗔𝗡 𝗕𝗥𝗔𝗡𝗗</h1>
+      <p>Élégance Marocaine</p>
+      <div class="splash-bottom-line"></div>
+      <button class="enter-btn" onclick="enterSite()">Découvrir la collection</button>
     </div>
   </div>
-  <div id="success" class="hidden success-msg">
-    ✅ Commande envoyée avec succès !
+
+  <!-- HEADER -->
+  <header>
+    <h1>𝗔𝗬𝗠𝗔𝗡 𝗕𝗥𝗔𝗡𝗗</h1>
+    <p class="subtitle">Élégance Marocaine</p>
+  </header>
+  <div class="gold-bar"></div>
+
+  <!-- PAGE CATALOGUE -->
+  <main id="catalog-page">
+    <div id="products" class="products-grid"></div>
+  </main>
+
+  <!-- PAGE PRODUIT DÉTAIL -->
+  <div id="product-page">
+    <div class="breadcrumb" onclick="goBack()">
+      ← Retour &nbsp;/&nbsp; <span id="detail-name-bread"></span>
+    </div>
+    <div class="product-detail-grid">
+      <div class="product-images">
+        <img id="main-product-img" src="" alt="produit">
+        <div id="thumbnails" class="thumbnails"></div>
+      </div>
+      <div class="product-info">
+        <h2 id="detail-name"></h2>
+        <div class="modal-divider">— ✦ —</div>
+        <p id="detail-price"></p>
+        <label>Taille :</label>
+        <div id="detail-sizes"></div>
+        <label>Couleur :</label>
+        <div id="detail-colors"></div>
+        <label>Votre nom :</label>
+        <input type="text" id="detail-name-input" placeholder="Nom complet">
+        <label>Téléphone :</label>
+        <input type="text" id="detail-phone" placeholder="06XXXXXXXX">
+        <label>Adresse :</label>
+        <input type="text" id="detail-address" placeholder="Votre adresse">
+        <label>Ville :</label>
+        <input type="text" id="detail-city" placeholder="Votre ville">
+        <button id="detail-submit" onclick="submitOrder()">Confirmer la commande</button>
+      </div>
+    </div>
   </div>
+
+  <!-- SUCCÈS -->
+  <div id="success" class="hidden success-msg">
+    Commande envoyée avec succès ! ✦
+  </div>
+
+  <footer>
+    <p>𝗔𝗬𝗠𝗔𝗡 𝗕𝗥𝗔𝗡𝗗 &nbsp;✦&nbsp; Élégance Marocaine</p>
+  </footer>
+
   <script src="js/main.js"></script>
+  <script>
+    function enterSite() {
+      const splash = document.getElementById('splash');
+      splash.classList.add('fade-out');
+      setTimeout(() => splash.style.display = 'none', 1200);
+    }
+    function goBack() {
+      document.getElementById('product-page').style.display = 'none';
+      document.getElementById('catalog-page').style.display = 'block';
+      window.scrollTo(0, 0);
+    }
+  </script>
 </body>
 </html>

@@ -28,7 +28,7 @@ app.get('/api/products', async (req, res) => {
     const sheets = google.sheets({ version: 'v4', auth: client });
     const response = await sheets.spreadsheets.values.get({
       spreadsheetId: process.env.SHEET_ID,
-      range: 'Stock!A2:F100',
+      range: 'Stock!A2:M100',
     });
     const rows = response.data.values || [];
     const products = rows.map((row) => ({
@@ -38,6 +38,16 @@ app.get('/api/products', async (req, res) => {
       sizes: row[3] ? row[3].split(',') : [],
       colors: row[4] ? row[4].split(',') : [],
       image: row[5],
+      colorImages: {
+        [row[4] ? row[4].split(',')[0] : '']: row[5],
+        [row[4] ? row[4].split(',')[1] : '']: row[6],
+        [row[4] ? row[4].split(',')[2] : '']: row[7],
+        [row[4] ? row[4].split(',')[3] : '']: row[8],
+        [row[4] ? row[4].split(',')[4] : '']: row[9],
+        [row[4] ? row[4].split(',')[5] : '']: row[10],
+        [row[4] ? row[4].split(',')[6] : '']: row[11],
+        [row[4] ? row[4].split(',')[7] : '']: row[12],
+      }
     }));
     res.json(products);
   } catch (error) {
