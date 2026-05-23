@@ -10,6 +10,14 @@ const app = express();
 app.use(express.json());
 app.use(express.static('public'));
 
+// Redirect HTTP to HTTPS
+app.use((req, res, next) => {
+  if (req.headers['x-forwarded-proto'] !== 'https') {
+    return res.redirect(301, 'https://' + req.headers.host + req.url);
+  }
+  next();
+});
+
 let credentials;
 if (process.env.GOOGLE_CREDENTIALS) {
   credentials = JSON.parse(process.env.GOOGLE_CREDENTIALS);
